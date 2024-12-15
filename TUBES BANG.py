@@ -4,7 +4,12 @@ from tkinter import messagebox, simpledialog
 # Simulasi data login (username dan password)
 USER_DATA = {
     "admin": "1234",
-    "user": "password"
+    "user": "password",
+    "pome": "123450062",
+    "ridwan": "1234500",
+    "rahma": "123450102",
+    "ale": "1234500",
+    "keren":"1234500"
 }
 
 # Data soal dan jawaban
@@ -41,12 +46,16 @@ def clear_screen():
 def add_question():
     try:
         question = simpledialog.askstring("Tambah Soal", "Masukkan pertanyaan:")
-        answer = simpledialog.askstring("Tambah Soal", "Masukkan jawaban:")
-        if question and answer:
-            questions.append((question, answer))
+        options = []
+        for i in range(1, 5):
+            option = simpledialog.askstring("Tambah Soal", f"Masukkan pilihan {i}:")
+            options.append(option)
+        correct_option = simpledialog.askinteger("Tambah Soal", "Masukkan nomor jawaban benar (1-4):")
+        if question and all(options) and 1 <= correct_option <= 4:
+            questions.append((question, options, correct_option))
             messagebox.showinfo("Sukses", "Soal berhasil ditambahkan!")
         else:
-            messagebox.showwarning("Peringatan", "Pertanyaan atau jawaban tidak boleh kosong!")
+            messagebox.showwarning("Peringatan", "Input tidak boleh kosong atau salah!")
     except Exception as e:
         messagebox.showerror("Error", f"Terjadi kesalahan: {e}")
 
@@ -58,13 +67,17 @@ def edit_question():
     try:
         index = simpledialog.askinteger("Edit Soal", f"Masukkan nomor soal (1-{len(questions)}):")
         if 1 <= index <= len(questions):
-            new_question = simpledialog.askstring("Edit Soal", "Masukkan pertanyaan baru:")
-            new_answer = simpledialog.askstring("Edit Soal", "Masukkan jawaban baru:")
-            if new_question and new_answer:
-                questions[index - 1] = (new_question, new_answer)
+            question = simpledialog.askstring("Edit Soal", "Masukkan pertanyaan baru:")
+            options = []
+            for i in range(1, 5):
+                option = simpledialog.askstring("Edit Soal", f"Masukkan pilihan {i}:")
+                options.append(option)
+            correct_option = simpledialog.askinteger("Edit Soal", "Masukkan nomor jawaban benar (1-4):")
+            if question and all(options) and 1 <= correct_option <= 4:
+                questions[index - 1] = (question, options, correct_option)
                 messagebox.showinfo("Sukses", "Soal berhasil diubah!")
             else:
-                messagebox.showwarning("Peringatan", "Input tidak boleh kosong!")
+                messagebox.showwarning("Peringatan", "Input tidak boleh kosong atau salah!")
         else:
             messagebox.showwarning("Peringatan", "Nomor soal tidak valid!")
     except Exception as e:
@@ -91,19 +104,35 @@ def start_quiz():
         messagebox.showwarning("Peringatan", "Belum ada soal untuk kuis!")
         return
 
-    score = 0
-    for i, (question, answer) in enumerate(questions):
-        user_answer = simpledialog.askstring(f"Soal {i+1}", question)
-        if user_answer and user_answer.lower() == answer.lower():
-            score += 1
+    def next_question(index, score):
+        if index >= len(questions):
+            messagebox.showinfo("Hasil Kuis", f"Skor Anda: {score}/{len(questions)}")
+            scores.append(score)
+            main_menu()
+            return
 
-    scores.append(score)
-    messagebox.showinfo("Hasil Kuis", f"Skor Anda: {score}/{len(questions)}")
+        clear_screen()
+        question, options, correct_option = questions[index]
+        tk.Label(root, text=f"Soal {index+1}: {question}", wraplength=400, font=("Arial", 14)).pack(pady=20)
+        selected_option = tk.IntVar(value=0)
+
+        for i, option in enumerate(options):
+            tk.Radiobutton(root, text=option, variable=selected_option, value=i+1).pack(anchor="w", padx=20)
+
+        def submit_answer():
+            if selected_option.get() == correct_option:
+                next_question(index + 1, score + 1)
+            else:
+                next_question(index + 1, score)
+
+        tk.Button(root, text="Submit", command=submit_answer).pack(pady=20)
+
+    next_question(0, 0)
 
 # GUI Utama
 root = tk.Tk()
 root.title("Sistem Kuis Interaktif")
-root.geometry("400x300")
+root.geometry("500x400")
 
 # Elemen login
 tk.Label(root, text="Username:").pack(pady=5)
