@@ -1,20 +1,23 @@
 import tkinter as tk
 from tkinter import messagebox, simpledialog
 
+
 # Simulasi data login (username dan password)
 USER_DATA = {
-    "admin": "1234",
+    "admin": "123",
     "user": "password",
     "pome": "123450062",
-    "ridwan": "1234500",
+    "ridwan": "123450091",
     "rahma": "123450102",
-    "ale": "1234500",
-    "keren":"1234500"
+    "ale": "123450075",
+    "keren":"123450020"
 }
+
 
 # Data soal dan jawaban
 questions = []
 scores = []
+
 
 # Fungsi login
 def login():
