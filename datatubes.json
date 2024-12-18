@@ -1,0 +1,62 @@
+[
+    {
+        "question": "Apa nama planet terbesar di tata surya?",
+        "options": [
+            "mars",
+            "jupiter",
+            "saturnus",
+            "venus"
+        ],
+        "answer": 2
+    },
+    {
+        "question": "Ibu kota indonesia adalah .....",
+        "options": [
+            "jakarta",
+            "IKN",
+            "Lampung geh",
+            "belwish"
+        ],
+        "answer": 2
+    },
+    {
+        "question": "tahun kemerdekaan indonesia",
+        "options": [
+            "1942",
+            "1943",
+            "1944",
+            "1945"
+        ],
+        "answer": 4
+    },
+    {
+        "question": "Siapa penemu listrik?",
+        "options": [
+            "Albert Einstein",
+            "Thomas Edison",
+            "Nikola Tesla",
+            "Michael Faraday"
+        ],
+        "answer": 3
+    },
+    {
+        "question": "Berapa jumlah negara di dunia pada tahun 2024?",
+        "options": [
+            "195",
+            "190",
+            "210",
+            "200"
+        ],
+        "answer": 1
+    },
+    {
+        "question": "Apa ibu kota negara Jepang?",
+        "options": [
+            "Tokyo",
+            "Kyoto",
+            "Osaka",
+            "Hiroshima"
+        ],
+        "answer": 1
+    }
+]
